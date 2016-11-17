@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'clientes',
     'facturator',
     'login',
-    'tarea',
+    'tareas',
     'trabajos',
 )
 
