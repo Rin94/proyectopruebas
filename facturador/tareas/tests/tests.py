@@ -6,14 +6,19 @@ from tareas.models import tareas
 
 class ProbarTareas(TestCase):
 
+    def tearUp(self):
+        print ("Hola")
+
     def test_addTask(self):
+        totalObj = tareas.objects.all()
+        total= totalObj.count()
         tarea= tareas()
         tarea.nombre="Recuperacion de  archivos de disco duro"
         tarea.descripcion="Se busca los archivos importantes de un disco duro daniado"
         tarea.precio=999.99
-        total=tarea.objects.all()
+        #total=tareas.objects.all()
         tarea.save()
-        nuevo=tarea.objects.all()
-        self.assertEqual(total.count()+1,nuevo)
+        nuevo=tareas.objects.all()
+        self.assertEqual(nuevo.count(),total+1)
 
 
