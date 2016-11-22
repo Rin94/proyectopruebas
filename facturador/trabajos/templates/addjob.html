@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block titulo %}
+    {{funcion}} Trabajo
+{% endblock %}
+
+{% block contenido %}
+
+    <div class="row">
+  		<div class="col-md-6">
+
+			<h1>{{funcion}} Trabajo</h1>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+			        <div class="form-group">
+
+			                {% if field.errors %}<div class="alert alert-danger" role="alert">{{ field.errors.as_text }}</div>{% endif %}
+
+			        </div>
+			    {% endfor %}
+
+                     {{form.as_p}}
+                     {{form2.as_p}}
+
+
+
+                <button type="submit"   class="btn btn-primary btn-lg">{{funcion}}
+                Trabajo</button>
+
+                </form>
+		</div>
+    </div>
+
+{% endblock%}
