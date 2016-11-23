@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Lista de Clientes :)
+{% endblock %}
+
+{% block contenido %}
+
+<div class="row">
+    <div class="col-md-10">
+        <h1>Clientes</h1>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-primary btn-lg " href="{% url "nuevo_cliente" %}">
+        <i class="icon_plus_alt2"></i> Nuevo</a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Calle</th>
+            <th>Numero</th>
+            <th>Colonia</th>
+            <th>CP</th>
+            <th>Municipio</th>
+            <th>Estado</th>
+            <th>Herramientas</th>
+
+
+        </tr>
+
+            {% for cl in cliente %}
+        <tr>
+                <td>{{cl.first_name}}</td>
+                <td>{{cl.last_name}}</td>
+                <td>{{cl.email}}</td>
+                <td>{{cl.phone_number}}</td>
+                <td>{{cl.num_direccion}}</td>
+                <td>{{cl.colonia}}</td>
+                <td>{{cl.codigo_postal}}</td>
+                <td>{{cl.phone_number}}</td>
+                <td>{{cl.municipio}}</td>
+                <td>{{cl.estado}}</td>
+             <td>
+                <div class="btn-group">
+                    <a class="btn btn-success"  href="#" onclick="window.location='{% url "editar_cliente" pk=cl.id %}'">
+                        <i class="icon_check_alt2"></i>Editar
+                    </a>
+                    <a class="btn btn-danger" href="#" onclick="window.location='{% url "eliminar_cliente" pk=cl.id %}'">
+                        <i class="icon_close_alt2"></i>Eliminar
+                    </a>
+                </div>
+            </td>
+     </tr>
+        {% endfor %}
+
+    </table>
+    </div>
+<form method="POST" name="formMentor" action ="{% url "eliminar_post" %}">
+    {% csrf_token %}
+
+    <input type="hidden" name="id_tarea">
+
+</form>
+
+{% endblock %}

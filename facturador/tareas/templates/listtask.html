@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Lista de Mentores
+{% endblock %}
+
+{% block contenido %}
+
+<div class="row">
+    <div class="col-md-10">
+        <h1>Catalogo de tareas</h1>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-primary btn-lg " href="{% url "nueva_tarea" %}">
+        <i class="icon_plus_alt2"></i> Nueva</a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+            <th>Herramientas</th>
+
+        </tr>
+
+            {% for task in tarea %}
+        <tr>
+                <td>{{task.nombre}}</td>
+                <td>{{task.precio}}</td>
+                <td>{{task.descripcion}}</td>
+             <td>
+                <div class="btn-group">
+                    <a class="btn btn-success" href="#" onclick="window.location='{% url "editar_tarea" pk=task.id %}'">
+                        <i class="icon_check_alt2"></i>Editar
+                    </a>
+                    <a class="btn btn-danger" href="#" onclick="window.location='{% url "eliminar_tarea" pk=task.id %}'">
+                        <i class="icon_close_alt2"></i>Eliminar
+                    </a>
+                </div>
+            </td>
+     </tr>
+        {% endfor %}
+
+    </table>
+    </div>
+<form method="POST" name="formMentor" action ="{% url "eliminar_post" %}">
+    {% csrf_token %}
+
+    <input type="hidden" name="id_tarea">
+
+</form>
+
+{% endblock %}

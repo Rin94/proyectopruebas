@@ -12,10 +12,19 @@ def nuevo(request):
         form=formTareas(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('#')
+            return redirect('/tareas/')
     else:
         form=formTareas()
     return render(request,'addtask.html',{'form':form,'funcion':'Nueva'})
+
+def lista(request):
+	tarea = tareas.objects.all()
+	return render(request, 'listtask.html', {'tarea':tarea})
+
+def eliminar(request, pk):
+	mentor = tareas.objects.get(pk=pk)
+	mentor.delete()
+	return redirect('/tareas/')
 
 def editar(request,pk):
     task=tareas.objects.get(pk=pk)
@@ -23,7 +32,13 @@ def editar(request,pk):
         form=editFormTareas(request.POST,instance=task)
         if form.is_valid():
             form.save()
-            return redirect('#')
+            return redirect('/tareas/')
     else:
         form=editFormTareas(instance=task)
     return render(request,'addtask.html',{'form':form, 'funcion':'Actualizar'})
+
+def eliminarPOST(request):
+	id = request.POST.get('id_tareas','')
+	mentor = tareas.objects.get(pk=id)
+	mentor.delete()
+	return redirect('/tareas/')
